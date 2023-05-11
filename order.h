@@ -1,7 +1,8 @@
+#include <stdio.h>
 #include <string>
 
 typedef struct {
-    string name;
+    char[100] name;
     int price;
     int day;
 } Menu;
