@@ -17,7 +17,17 @@ int addMenu(Menu *p) {
 }
 
 void listMenu(Menu *p[], int count) {
+	printf("\n월\t화\t수\t목\t금\t토\t일\n");
+        printf("=========================================\n");
+        for(int i = 0; i < count ; i++) {
+                if (p[i] == NULL) {
+                        continue;
+                }
+                printf("%2d ", i+1);
 
+                readItem(*p[i]);
+        }
+        printf("\n");
 }
 
 void readMenu(Menu p) {
