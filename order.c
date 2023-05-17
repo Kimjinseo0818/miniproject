@@ -1,7 +1,20 @@
 #include <stdio.h>
 
 int loadData(Menu *p[]) {
+	int count = 0, i = 0;
+        FILE *file;
 
+        file = fopen("order.txt", "rt");
+        for(i = 0; i < 100; i++) {
+                if(feof(file)) {
+                        break;
+                }
+                p[i]=(Order*)malloc(sizeof(Order));
+                fgets(p[i]->name, 100, file);
+                p[i]->name[strlen(s[i]->name) - 1] = '\0';
+        }
+        fclose(file);
+        return i;
 }
 
 int addMenu(Menu *p) {
