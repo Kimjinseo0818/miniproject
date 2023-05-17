@@ -19,11 +19,7 @@ int addMenu(Menu *p) {
 void listMenu(Menu *p[], int count) {
 	printf("\n월\t화\t수\t목\t금\t토\t일\n");
         printf("=========================================\n");
-<<<<<<< HEAD
 	for(int i = 0; i < count ; i++) {
-=======
-        for(int i = 0; i < count ; i++) {
->>>>>>> cfile
                 if (p[i] == NULL) {
                         continue;
                 }
@@ -55,6 +51,17 @@ void deleteMenu(Menu *p[], char fname[100]) {
 }
 
 void saveMenu(Menu *p[], int count) {
-
+	FILE *file;
+        file = fopen("order.txt", "wt");
+        for (int i = 0; i < count; i++) {
+                if (p[i] == NULL) {
+                         continue;
+                }
+        fprintf(file, "");
+        if (i != count - 1)
+                fprintf(file, "\n");
+        }
+        fclose(file);
+        printf("=> 저장됨!\n");
 }
 
