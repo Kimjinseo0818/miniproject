@@ -9,7 +9,7 @@ int loadData(Menu *p[]) {
                 if(feof(file)) {
                         break;
                 }
-                p[i]=(Order*)malloc(sizeof(Order));
+                p[i]=(Menu*)malloc(sizeof(Menu));
                 fgets(p[i]->name, 100, file);
                 p[i]->name[strlen(s[i]->name) - 1] = '\0';
         }
@@ -60,7 +60,16 @@ int updateMenu(Menu *p) {
 }
 
 void deleteMenu(Menu *p[], char fname[100]) {
-
+	int check;
+        printf("정말로 삭제하시겠습니까? (삭제: 1) ");
+        scanf("%d", &check);
+        if(check == 1) {
+                free(p[num-1]);
+                p[num-1] = NULL;
+                printf("삭제되었습니다.\n");
+        } else {
+                printf("삭제가 취소되었습니다.\n");
+        }
 }
 
 void saveMenu(Menu *p[], int count) {
