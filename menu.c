@@ -1,16 +1,16 @@
-#include "order.h"
 #include <stdio.h>
+#include "menu.h"
 
-int loadData(Menu *p[]) {
+int loadData(Order *p[]) {
 	int count = 0, i = 0;
         FILE *file;
 
-        file = fopen("order.txt", "rt");
+        file = fopen("menu.txt", "rt");
         for(i = 0; i < 100; i++) {
                 if(feof(file)) {
                         break;
                 }
-                p[i]=(Menu*)malloc(sizeof(Menu));
+                p[i]=(Order*)malloc(sizeof(Order));
                 fgets(p[i]->name, 100, file);
                 p[i]->name[strlen(s[i]->name) - 1] = '\0';
         }
@@ -18,20 +18,22 @@ int loadData(Menu *p[]) {
         return i;
 }
 
-int addMenu(Menu *p) {
-	printf("음식 이름은? ");
+int addOrder(Order *p) {
+	printf("주문자 이름?  ");
 	getchar();
 	fgets(p->name, 100, stdin);
 	p->name[strlen(p->name) - 1] = '\0';
-	printf("가격은? ");
-	scanf("%d", &p->price);
-	printf("요일은?(월:0, 화:1, 수:2, 목:3, 금:4)");
-	scanf("%d", &p->day);
+	printf("주문? ");
+	scanf("%d", &p->count[0]);
+	printf("요청사항은? ");
+	getchar();
+	fgets(p->add, 100, stdin);
+	p->add[strlen(p->add) - 1] = '\0';
 	return 1;
 }
 
-void listMenu(Menu *p[], int count) {
-	printf("\n월\t화\t수\t목\t금\t토\t일\n");
+void listOrder(Order *p[], int count) {
+	printf("이름\t주문\t요청 사항\n");
         printf("=========================================\n");
 	for(int i = 0; i < count ; i++) {
                 if (p[i] == NULL) {
@@ -39,28 +41,30 @@ void listMenu(Menu *p[], int count) {
                 }
                 printf("%2d ", i+1);
 
-                readItem(*p[i]);
+                readOrder(*p[i]);
         }
         printf("\n");
 }
 
-void readMenu(Menu p) {
-	printf("%s %d\n", s.name, s.price);
+void readOrder(Order p) {
+	printf("%s %d %d %s\n", s.name, s.count[0], s.prcie, s.add);
 }
 
-int updateMenu(Menu *p) {
-	printf("음식 이름은? ");
+int updateOrder(Order *p) {
+	printf("주문자 이름?  ");
         getchar();
-        fgets(s->name, 100, stdin);
-        s->name[strlen(s->name) - 1] = '\0';
-        printf("가격은? ");
-        scanf("%d", &s->price);
-        printf("요일은? (월:0, 화:1, 수:2, 목:3, 금:4)");
-        scanf("%s", s->day);
-        return 1;
+        fgets(p->name, 100, stdin);
+        p->name[strlen(p->name) - 1] = '\0';
+        printf("주문? ");
+        scanf("%d", &p->count[0]);
+        printf("요청사항은? ");
+        getchar();
+        fgets(p->add, 100, stdin);
+        p->add[strlen(p->add) - 1] = '\0';
+        return 1;	
 }
 
-void deleteMenu(Menu *p[], int num) {
+void deleteOrder(Order *p[], int num) {
 	int check;
         printf("정말로 삭제하시겠습니까? (삭제: 1) ");
         scanf("%d", &check);
@@ -73,9 +77,9 @@ void deleteMenu(Menu *p[], int num) {
         }
 }
 
-void saveMenu(Menu *p[], int count) {
+void saveOrder(Order *p[], int count) {
 	FILE *file;
-        file = fopen("order.txt", "wt");
+        file = fopen("menu.txt", "wt");
         for (int i = 0; i < count; i++) {
                 if (p[i] == NULL) {
                          continue;
@@ -87,4 +91,3 @@ void saveMenu(Menu *p[], int count) {
         fclose(file);
         printf("=> 저장됨!\n");
 }
-
