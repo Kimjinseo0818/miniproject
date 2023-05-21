@@ -11,6 +11,8 @@ int loadData(Menu *p[]) {
                         break;
                 }
                 p[i]=(Menu*)malloc(sizeof(Menu));
+		fscanf(file,"%d",p[i]->day);
+		fscanf(file,"%d",p[i]->price);
                 fgets(p[i]->name, 100, file);
                 p[i]->name[strlen(s[i]->name) - 1] = '\0';
         }
@@ -31,21 +33,19 @@ int addMenu(Menu *p) {
 }
 
 void listMenu(Menu *p[], int count) {
-	printf("\n월\t화\t수\t목\t금\t토\t일\n");
+	printf("\n월\t화\t수\t목\t금\n");
         printf("=========================================\n");
 	for(int i = 0; i < count ; i++) {
                 if (p[i] == NULL) {
                         continue;
                 }
-                printf("%2d ", i+1);
-
                 readItem(*p[i]);
         }
         printf("\n");
 }
 
 void readMenu(Menu p) {
-	printf("%s %d\n", s.name, s.price);
+	printf("%s %5d원\n", s.name, s.price);
 }
 
 int updateMenu(Menu *p) {
@@ -80,7 +80,7 @@ void saveMenu(Menu *p[], int count) {
                 if (p[i] == NULL) {
                          continue;
                 }
-        fprintf(file, "");
+        fprintf(file, "%d %d %s", p[i]->day, p[i]->price, p[i]->name);
         if (i != count - 1)
                 fprintf(file, "\n");
         }
