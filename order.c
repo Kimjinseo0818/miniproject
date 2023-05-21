@@ -30,16 +30,17 @@ int addMenu(Menu *p) {
 	return 1;
 }
 
-void listMenu(Menu *p[], int count) {
-	printf("\n월\t화\t수\t목\t금\t토\t일\n");
+void listMenu(Menu *p[], int count, int day) {
+	char nday[5][5] = {"월","화","수","목","금"} 
+	printf("\n%s요일 식단\n", nday[day]);
         printf("=========================================\n");
 	for(int i = 0; i < count ; i++) {
                 if (p[i] == NULL) {
                         continue;
                 }
-                printf("%2d ", i+1);
-
-                readItem(*p[i]);
+		if (p[i]->day == day) {
+                	readMenu(*p[i]);
+		}
         }
         printf("\n");
 }
