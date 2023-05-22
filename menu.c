@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include "menu.h"
+#include "order.h"
 
-int loadData(Order *p[]) {
+int loadData(Order *p[], int count) {
 	int count = 0, i = 0;
         FILE *file;
 
@@ -11,35 +12,56 @@ int loadData(Order *p[]) {
                         break;
                 }
                 p[i]=(Order*)malloc(sizeof(Order));
-                fgets(p[i]->name, 100, file);
-                p[i]->name[strlen(s[i]->name) - 1] = '\0';
+		fscanf(file, "%s", p[i]->name);
+		fscanf(file, "%d", p[i]->price);
+		for (int j = 0; j < count; j++) {
+			fscanf(file, "%d", p[i]->count[j]);
+		}
+                fgets(p[i]->add, 100, file);
+                p[i]->add[strlen(p[i]->add) - 1] = '\0';
         }
         fclose(file);
         return i;
 }
 
-int addOrder(Order *p) {
+int addOrder(Order *p, Menu *s[], int count, int day) {
+	int j = 0;
+	int k = 0;
+	p->price = 0;
 	printf("주문자 이름?  ");
-	getchar();
-	fgets(p->name, 100, stdin);
-	p->name[strlen(p->name) - 1] = '\0';
-	printf("주문? ");
-	scanf("%d", &p->count[0]);
+	scanf("%s", p->name);
+	printf("주문? (| ");
+	for (int i = 0; i < count; i++) {
+		if (s[i]->day == day) {
+			printf("(%d) : %s | ", j + 1, s[i]->name);
+			j++;
+		}
+	}
+	printf(") ");	
+	for (int i = 0; i < j; i++) {
+		scanf("%d ", &p->count[i]);
+	}
 	printf("요청사항은? ");
 	getchar();
 	fgets(p->add, 100, stdin);
 	p->add[strlen(p->add) - 1] = '\0';
+	for (int i = 0; i < count; i++) {
+		if (s[i]->day == day) {
+			p->price += s[i]->price * p->count[k];
+			k++;
+		}
+	}
 	return 1;
 }
 
 void listOrder(Order *p[], int count) {
-	printf("이름\t주문\t요청 사항\n");
+	printf("주문 번호 이름\t주문\t요청 사항\n");
         printf("=========================================\n");
 	for(int i = 0; i < count ; i++) {
                 if (p[i] == NULL) {
                         continue;
                 }
-                printf("%2d ", i+1);
+                printf("%2d   ", i+1);
 
                 readOrder(*p[i]);
         }
@@ -50,18 +72,34 @@ void readOrder(Order p) {
 	printf("%s %d %d %s\n", s.name, s.count[0], s.prcie, s.add);
 }
 
-int updateOrder(Order *p) {
+int updateOrder(Order *p, Menu *s[], int count, int day) {
+	int j = 0;
+	int k = 0;
+	p->price = 0;
 	printf("주문자 이름?  ");
-        getchar();
-        fgets(p->name, 100, stdin);
-        p->name[strlen(p->name) - 1] = '\0';
-        printf("주문? ");
-        scanf("%d", &p->count[0]);
-        printf("요청사항은? ");
-        getchar();
-        fgets(p->add, 100, stdin);
-        p->add[strlen(p->add) - 1] = '\0';
-        return 1;	
+	scanf("%s", p->name);
+	printf("주문? (| ");
+	for (int i = 0; i < count; i++) {
+		if (s[i]->day == day) {
+			printf("(%d) : %s | ", j + 1, s[i]->name);
+			j++;
+		}
+	}
+	printf(") ");	
+	for (int i = 0; i < j; i++) {
+		scanf("%d ", &p->count[i]);
+	}
+	printf("요청사항은? ");
+	getchar();
+	fgets(p->add, 100, stdin);
+	p->add[strlen(p->add) - 1] = '\0';
+	for (int i = 0; i < count; i++) {
+		if (s[i]->day == day) {
+			p->price += s[i]->price * p->count[k];
+			k++;
+		}
+	}
+        return 0;	
 }
 
 void deleteOrder(Order *p[], int num) {
@@ -77,7 +115,7 @@ void deleteOrder(Order *p[], int num) {
         }
 }
 
-void saveOrder(Order *p[], int count) {
+void saveOrder(Order *p[], int count, int ncount) {
 	FILE *file;
         file = fopen("menu.txt", "wt");
         for (int i = 0; i < count; i++) {
@@ -85,9 +123,14 @@ void saveOrder(Order *p[], int count) {
                          continue;
                 }
         fprintf(file, "");
-        if (i != count - 1)
-                fprintf(file, "\n");
+        if (i != count - 1) {
+		fprintf(file, "%s %d ", p[i]->name, p[i]->count);
+		for (int j = 0; j < ncount; j++) {
+			fprintf(file, "%d ", p[i]->count[j]);
+		}
+                fprintf(file, "%s\n", p[i]->add);
         }
         fclose(file);
         printf("=> 저장됨!\n");
 }
+
