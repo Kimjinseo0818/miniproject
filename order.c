@@ -11,8 +11,8 @@ int loadData(Menu *p[]) {
                         break;
                 }
                 p[i]=(Menu*)malloc(sizeof(Menu));
-		fscanf(file,"%d",p[i]->day);
-		fscanf(file,"%d",p[i]->price);
+		fscanf(file,"%d", &p[i]->day);
+		fscanf(file,"%d", &p[i]->price);
                 fgets(p[i]->name, 100, file);
                 p[i]->name[strlen(s[i]->name) - 1] = '\0';
         }
@@ -48,7 +48,7 @@ void listMenu(Menu *p[], int count, int day) {
 }
 
 void readMenu(Menu p) {
-	printf("%s %5d원\n", s.name, s.price);
+	printf("-%s %5d원\n", s.name, s.price);
 }
 
 int updateMenu(Menu *p) {
