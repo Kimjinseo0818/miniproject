@@ -21,3 +21,5 @@ int updateMenu(Menu *p);
 void deleteMenu(Menu *p[], int num);
 
 void saveMenu(Menu *p[], int count);
+
+void menuRecommend(Menu *p[], int day, int count);
