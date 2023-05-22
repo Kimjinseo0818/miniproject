@@ -1,22 +1,23 @@
 #include <stdio.h>
-#include <string>
 
 typedef struct {
-    char[100] name;
+    char name[100];
     int price;
     int day;
 } Menu;
 
 int loadData(Menu *p[]);
 
+int loadMenu(Menu *p[], int day);
+
 int addMenu(Menu *p);
 
-void listMenu(Menu *p[], int count);
+void listMenu(Menu *p[], int count, int day);
 
 void readMenu(Menu p);
 
 int updateMenu(Menu *p);
 
-void deleteMenu(Menu *p[], char fname[100]);
+void deleteMenu(Menu *p[], int num);
 
 void saveMenu(Menu *p[], int count);

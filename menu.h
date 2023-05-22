@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "order.h"
 
 typedef struct {
         char name[40];
@@ -7,17 +8,17 @@ typedef struct {
         char add[100];
 } Order;
 
-int loadData(Order *p[]);
+int loadOrder(Order *p[], int count);
 
-int addOrder(Order *p);
+int addOrder(Order *p, Menu *s[], int count, int day );
 
 void listOrder(Order *p[], int count);
 
 void readOrder(Order p);
 
-int updateOrder(Order *p);
+int updateOrder(Order *p, Menu *s[], int count, int day);
 
-void deleteOrder(Order *p[], char fname[100]);
+void deleteOrder(Order *p[], int num);
 
-void saveOrder(Order *p[], int count);
+void saveOrder(Order *p[], int count, int ncount);
 

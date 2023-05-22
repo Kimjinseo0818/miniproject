@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "menu.h"
-#include "order.h"
 
-int loadData(Order *p[], int count) {
+int loadOrder(Order *p[], int ncount) {
 	int count = 0, i = 0;
         FILE *file;
 
@@ -13,9 +14,9 @@ int loadData(Order *p[], int count) {
                 }
                 p[i]=(Order*)malloc(sizeof(Order));
 		fscanf(file, "%s", p[i]->name);
-		fscanf(file, "%d", p[i]->price);
-		for (int j = 0; j < count; j++) {
-			fscanf(file, "%d", p[i]->count[j]);
+		fscanf(file, "%d", &p[i]->price);
+		for (int j = 0; j < ncount; j++) {
+			fscanf(file, "%d", &p[i]->count[j]);
 		}
                 fgets(p[i]->add, 100, file);
                 p[i]->add[strlen(p[i]->add) - 1] = '\0';
@@ -69,7 +70,7 @@ void listOrder(Order *p[], int count) {
 }
 
 void readOrder(Order p) {
-	printf("%s %d %d %s\n", s.name, s.count[0], s.prcie, s.add);
+	printf("%s %d %d %s\n", p.name, p.count[0], p.price, p.add);
 }
 
 int updateOrder(Order *p, Menu *s[], int count, int day) {
@@ -122,13 +123,13 @@ void saveOrder(Order *p[], int count, int ncount) {
                 if (p[i] == NULL) {
                          continue;
                 }
-        fprintf(file, "");
-        if (i != count - 1) {
-		fprintf(file, "%s %d ", p[i]->name, p[i]->count);
-		for (int j = 0; j < ncount; j++) {
-			fprintf(file, "%d ", p[i]->count[j]);
-		}
-                fprintf(file, "%s\n", p[i]->add);
+		fprintf(file, "%s %d ", p[i]->name, p[i]->price);
+                for (int j = 0; j < ncount; j++) {
+                        fprintf(file, "%d ", p[i]->count[j]);
+                }
+                fprintf(file, "%s\n", p[i]->add);		
+        	
+		fprintf(file,"\n");
         }
         fclose(file);
         printf("=> 저장됨!\n");
