@@ -120,7 +120,8 @@ void saveMenu(Menu *p[], int count) {
 	}
 }
 
-void menuRecommend(Menu *p[], int day, int ncount) {
+void menuRecommend(Menu *p[], int day, int ncount, int count) {
+	int index;
 	for (int i = 0; i < count; i++) {
 		if (p[i]->day == day) {
 			index = i;

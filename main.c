@@ -96,7 +96,7 @@ int main() {
                 } else if (menu == 5) {
                         saveOrder(p, count, ncount);
                 } else if (menu == 6) {
-			menuRecommend(s, day, ncount);
+			menuRecommend(s, day, ncount, count);
 		} else if (menu == 7) {
 			int change;
 			printf("요일이 바뀌면 주문이 초기화됩니다.\n 정말 종료하겠습니까? (0:취소, 1:변경) ");
