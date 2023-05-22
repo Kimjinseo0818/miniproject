@@ -1,3 +1,4 @@
+#include <time.h>
 #include "order.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -119,32 +120,48 @@ void saveMenu(Menu *p[], int count) {
 	}
 }
 
-void menuRecommend(Menu *p[], int day, int count) {
+/*
+void menuRecommend(Menu *p[], int day, int ncount) {
 	int index, i;
-	FILE *file3;
+	FILE *file4;
 
-        file3 = fopen("order.txt", "rt");
+        file4 = fopen("order.txt", "rt");
         for(i = 0; i < 100; i++) {
-                if(feof(file3)) {
+                if(feof(file4)) {
                         break;
                 }
 		p[i]=(Menu*)malloc(sizeof(Menu));
-                fscanf(file3,"%d", &p[i]->day);
-                fscanf(file3,"%d", &p[i]->price);
-                fgets(p[i]->name, 100, file3);
+		printf("1");
+                fscanf(file4,"%d", &p[i]->day);
+                fscanf(file4,"%d", &p[i]->price);
+                fgets(p[i]->name, 100, file4);
                 p[i]->name[strlen(p[i]->name) - 1] = '\0';
 		
 		if(p[i]->day == day) {
 			index = i;
 		}
         }
-        fclose(file3);
-	
-	int random = rand() % (ncount - 1) + (index + 1 - ncount);
+        fclose(file4);
+
+	srand(time(0));
+	printf("%d",index);
+	int random = rand() % ncount + (index - ncount);
+
+	printf("\n%d", random);
+
 	char randomFood[100];
 	strcpy(randomFood,p[random]->name);
 	int randomPrice = p[random]->price;
-	printf("\n-- 오늘의 추천 메뉴! --\n");
+	printf("\n-- 오늘의 추천 메뉴 --\n");
 	printf("======================\n");
 	printf("%s : %d원\n", randomFood, randomPrice);
 }
+
+void changeDate(Menu *p[], int day, int count, int index, int ncount) {
+	printf("변경 요일은? (월:0, 화:1, 수:2, 목:3, 금:4) ");
+	scanf("%d", &day);
+	count = 0;
+	index = 0;
+	ncount = loadMenu(p, day);
+}
+*/

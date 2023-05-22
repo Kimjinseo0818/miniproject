@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "menu.h"
 #include <stdlib.h>
+#include <time.h>
 
 int main() {
 	Order *p[100];
@@ -21,6 +22,9 @@ int main() {
 	printf("%d", acount);
 	
 	printf("\n%d", ncount);
+	srand(time(0));
+	int test = rand()%11;
+	printf("\n%d", test);
 
 	FILE *file;
 	file = fopen("day.txt", "rt");
@@ -40,11 +44,13 @@ int main() {
 	fclose(file1);
 	while(1) {	
   		printf("\n*** 재고 확인 ***\n");
-  		printf("1. 조회 ");
-  		printf("2. 추가 ");
-  		printf("3. 수정 ");
-  		printf("4. 삭제 ");
-  		printf("5. 파일저장 ");
+  		printf("1. 조회 \n");
+  		printf("2. 추가 \n");
+  		printf("3. 수정 \n");
+  		printf("4. 삭제 \n");
+  		printf("5. 파일저장 \n");
+		printf("6. 메뉴 추천 \n");
+		printf("7. 요일 변경 \n");
   		printf("0. 종료 >> ");
   		scanf("%d", &menu);
 
@@ -89,7 +95,18 @@ int main() {
                         deleteOrder(p, num);
                 } else if (menu == 5) {
                         saveOrder(p, count, ncount);
-                }
+                } else if (menu == 6) {
+			menuRecommend(s, day, ncount);
+		} else if (menu == 7) {
+			int change;
+			printf("요일이 바뀌면 주문이 초기화됩니다.\n 정말 종료하겠습니까? (0:취소, 1:변경) ");
+			scanf("%d", &change);
+			if (change == 1) {
+				changeDate(s, day, count, index, ncount);
+			} else {
+				continue;
+			}
+		}
 	}
 	printf("종료!\n");
 	return 0;
