@@ -6,38 +6,47 @@
 
 int loadData(Menu *p[]) {
 	int count = 0, i = 0;
-        FILE *file;
+        FILE *file3;
 
-        file = fopen("order.txt", "rt");
+        file3 = fopen("order.txt", "rt");
         for(i = 0; i < 100; i++) {
-                if(feof(file)) {
+                if(feof(file3)) {
                         break;
                 }
                 p[i]=(Menu*)malloc(sizeof(Menu));
-		fscanf(file,"%d", &p[i]->day);
-		fscanf(file,"%d", &p[i]->price);
-                fgets(p[i]->name, 100, file);
+		fscanf(file3,"%d", &p[i]->day);
+		fscanf(file3,"%d", &p[i]->price);
+                fgets(p[i]->name, 100, file3);
                 p[i]->name[strlen(p[i]->name) - 1] = '\0';
         }
-        fclose(file);
-        return i;
+	i--;
+        fclose(file3);
+        
+	return i;
 }
 
 int loadMenu(Menu *p[], int day) {
         int count = 0, i = 0;
-        FILE *file;
+        FILE *file2;
 
-        file = fopen("order.txt", "rt");
+        file2 = fopen("order.txt", "rt");
         for(i = 0; i < 100; i++) {
-                if(feof(file)) {
+                if(feof(file2)) {
                         break;
                 }
+		p[i]=(Menu*)malloc(sizeof(Menu));
+                fscanf(file2,"%d", &p[i]->day);
+                fscanf(file2,"%d", &p[i]->price);
+                fgets(p[i]->name, 100, file2);
+                p[i]->name[strlen(p[i]->name) - 1] = '\0';
+
 		if(p[i]->day == day) {
-			continue;
+			count++;
 		}
         }
-        fclose(file);
-        return i;
+        fclose(file2);
+	count--;
+        return count;
 }
 
 int addMenu(Menu *p) {
