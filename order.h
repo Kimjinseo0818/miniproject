@@ -24,4 +24,4 @@ void saveMenu(Menu *p[], int count);
 
 void menuRecommend(Menu *p[], int day, int ncount, int count);
 
-void changeDate(Menu *p[], int day, int count, int index, int ncount);
+void changeDate(Menu *p[], int *day, int *count, int *index, int *ncount);

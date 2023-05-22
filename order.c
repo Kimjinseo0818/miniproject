@@ -120,13 +120,35 @@ void saveMenu(Menu *p[], int count) {
 	}
 }
 
-void menuRecommend(Menu *p[], int day, int ncount, int count) {
-	int index;
-	for (int i = 0; i < count; i++) {
+void menuRecommend(Menu *p[], int day, int ncount, int acount) {
+	int index = 0;
+
+	FILE *file6;
+
+        file6 = fopen("order.txt", "rt");
+        for(int i = 0; i < 100; i++) {
+                if(feof(file6)) {
+                        break;
+                }
+		if(p[i] = NULL) continue;
+		p[i]=(Menu*)malloc(sizeof(Menu));
+                fscanf(file6,"%d", &p[i]->day);
+                fscanf(file6,"%d", &p[i]->price);
+                fgets(p[i]->name, 100, file6);
+                p[i]->name[strlen(p[i]->name) - 1] = '\0';
+		if(p[i]->day == day) {
+			index = i;
+		}
+        }
+        fclose(file6);
+	
+	/*
+	for (int i = 0; i < acount; i++) {
 		if (p[i]->day == day) {
 			index = i;
 		}
 	}
+	*/
 
 	srand(time(0));
 	printf("%d",index);
@@ -142,11 +164,13 @@ void menuRecommend(Menu *p[], int day, int ncount, int count) {
 	printf("%s : %d원\n", randomFood, randomPrice);
 }
 
-void changeDate(Menu *p[], int day, int count, int index, int ncount) {
+void changeDate(Menu *p[], int *day, int *count, int *index, int *ncount) {
+	int cday = 0;
 	printf("변경 요일은? (월:0, 화:1, 수:2, 목:3, 금:4) ");
-	scanf("%d", &day);
-	count = 0;
-	index = 0;
-	ncount = loadMenu(p, day);
+	scanf("%d", &cday);
+	*day = cday;
+	*count = 0;
+	*index = 0;
+	*ncount = loadMenu(p, cday);
 }
 

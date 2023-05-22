@@ -51,7 +51,8 @@ int main() {
   		printf("5. 파일저장 \n");
 		printf("6. 메뉴 추천 \n");
 		printf("7. 요일 변경 \n");
-  		printf("0. 종료 >> ");
+  		printf("0. 종료\n");
+		printf("선택 >> ");
   		scanf("%d", &menu);
 
 		if (menu == 0) {
@@ -104,7 +105,7 @@ int main() {
 			printf("요일이 바뀌면 주문이 초기화됩니다.\n 정말 종료하겠습니까? (0:취소, 1:변경) ");
 			scanf("%d", &change);
 			if (change == 1) {
-				changeDate(s, day, count, index, ncount);
+				changeDate(s, &day, &count, &index, &ncount);
 			} else {
 				continue;
 			}

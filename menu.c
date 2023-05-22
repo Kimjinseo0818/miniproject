@@ -37,7 +37,7 @@ int addOrder(Order *p, Menu *s[], int count, int day) {
 	for (int i = 0; i < count; i++) {
 		if (s[i]->day == day) {
 			printf("(%d) : %s | ", i + 1, s[i]->name);
-			scanf("%d", &p->count[i]);
+			//scanf("%d", &p->count[i]);
 		}
 	}
 	printf("요청사항은? ");
