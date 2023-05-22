@@ -155,6 +155,7 @@ void menuRecommend(Menu *p[], int day, int ncount) {
 	printf("\n-- 오늘의 추천 메뉴 --\n");
 	printf("======================\n");
 	printf("%s : %d원\n", randomFood, randomPrice);
+	printf("get back);
 }
 
 void changeDate(Menu *p[], int day, int count, int index, int ncount) {
