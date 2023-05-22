@@ -12,9 +12,9 @@ int loadOrder(Order *p[], int count);
 
 int addOrder(Order *p, Menu *s[], int count, int day );
 
-void listOrder(Order *p[], int count);
+void listOrder(Order *p[], int count, Menu *s[]);
 
-void readOrder(Order p);
+void readOrder(Order p, Menu *s[]);
 
 int updateOrder(Order *p, Menu *s[], int count, int day);
 
