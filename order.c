@@ -121,26 +121,11 @@ void saveMenu(Menu *p[], int count) {
 }
 
 void menuRecommend(Menu *p[], int day, int ncount) {
-	int index, i;
-	FILE *file4;
-
-        file4 = fopen("order.txt", "rt");
-        for(i = 0; i < 100; i++) {
-                if(feof(file4)) {
-                        break;
-                }
-		p[i]=(Menu*)malloc(sizeof(Menu));
-		printf("1");
-                fscanf(file4,"%d", &p[i]->day);
-                fscanf(file4,"%d", &p[i]->price);
-                fgets(p[i]->name, 100, file4);
-                p[i]->name[strlen(p[i]->name) - 1] = '\0';
-		
-		if(p[i]->day == day) {
+	for (int i = 0; i < count; i++) {
+		if (p[i]->day == day) {
 			index = i;
 		}
-        }
-        fclose(file4);
+	}
 
 	srand(time(0));
 	printf("%d",index);
