@@ -120,7 +120,6 @@ void saveMenu(Menu *p[], int count) {
 	}
 }
 
-/*
 void menuRecommend(Menu *p[], int day, int ncount) {
 	int index, i;
 	FILE *file4;
@@ -155,7 +154,6 @@ void menuRecommend(Menu *p[], int day, int ncount) {
 	printf("\n-- 오늘의 추천 메뉴 --\n");
 	printf("======================\n");
 	printf("%s : %d원\n", randomFood, randomPrice);
-	printf("get back);
 }
 
 void changeDate(Menu *p[], int day, int count, int index, int ncount) {
@@ -165,4 +163,4 @@ void changeDate(Menu *p[], int day, int count, int index, int ncount) {
 	index = 0;
 	ncount = loadMenu(p, day);
 }
-*/
+
