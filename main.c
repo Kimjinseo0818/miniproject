@@ -18,10 +18,6 @@ int main() {
 
 	ncount = loadMenu(s, day);
 	acount = loadData(s);
-	
-	printf("\n%d", acount);
-
-	printf("\n%d", ncount);
 
 	FILE *file;
 	file = fopen("day.txt", "rt");
@@ -35,7 +31,6 @@ int main() {
 		count = 0;
 		index = count;
 	}
-	printf("\n%d", count);
 	/*
 	FILE *file1;
 	file = fopen("day.txt", "wt");
@@ -43,7 +38,7 @@ int main() {
 	fclose(file1);
 	*/
 	while(1) {	
-  		printf("\n*** 재고 확인 ***\n");
+  		printf("\n*** 주문하기 ***\n");
   		printf("1. 조회 \n");
   		printf("2. 추가 \n");
   		printf("3. 수정 \n");
@@ -69,7 +64,7 @@ int main() {
 		}               
 		if (menu == 1) {
                         if(count > 0) {
-                                listOrder(p, index, s);
+                                listOrder(p, index, s, day);
                         } else {
                                 printf("주문 내역이 없습니다.\n");
                         }
@@ -78,7 +73,7 @@ int main() {
                         p[index] = (Order *)malloc(sizeof(Order));
                         count += addOrder(p[index++], s, ncount, day);
                 } else if (menu == 3) {
-                        listOrder(p, index, s);
+                        listOrder(p, index, s, day);
                         printf("주문 번호는 (취소: 0)? ");
                         scanf("%d", &num);
                         if (num == 0) {
@@ -89,7 +84,7 @@ int main() {
                                 updateOrder(p[num-1], s, ncount, day);
                         }
                 } else if (menu == 4) {
-                        listOrder(p, index, s);
+                        listOrder(p, index, s, day);
                         printf("\n취소할 주문의 주문 번호는 (취소: 0)? ");
                         scanf("%d", &num);
                         if (num == 0) {

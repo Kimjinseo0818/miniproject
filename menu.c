@@ -52,7 +52,7 @@ int addOrder(Order *p, Menu *s[], int count, int day) {
 	return 1;
 }
 
-void listOrder(Order *p[], int count, Menu *s[]) {
+void listOrder(Order *p[], int count, Menu *s[], int day) {
 	printf("번호 이름\t주문\t가격\t요청 사항\n");
         printf("=========================================\n");
 	for(int i = 0; i < count ; i++) {
@@ -61,13 +61,23 @@ void listOrder(Order *p[], int count, Menu *s[]) {
                 }
                 printf("%2d   ", i+1);
 
-                readOrder(*p[i], s);
+                readOrder(*p[i], day, s, count);
         }
         printf("\n");
 }
 
-void readOrder(Order p, Menu *s[]) {
-	printf("%s %s:%d개 %d원 %s\n", p.name, s[0]->name , p.count[0], p.price, p.add);
+void readOrder(Order p, int day, Menu *s[], int count) {
+	int j = 0;
+	printf("%s", p.name);
+	for(int i = 0; i < count; i++) {
+		if (s[i]->day == day) {
+			if (p.count[j] != 0) {
+				printf("%s:%d개", s[i]->name, p.count[j]);
+			}
+			j++;
+		}
+	}
+        printf("%d원 %s\n", p.price, p.add);
 }
 
 int updateOrder(Order *p, Menu *s[], int count, int day) {

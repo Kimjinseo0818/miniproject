@@ -154,8 +154,6 @@ void menuRecommend(Menu *p[], int day, int ncount, int acount) {
 	printf("%d",index);
 	int random = rand() % ncount + (index - ncount);
 
-	printf("\n%d", random);
-
 	char randomFood[100];
 	strcpy(randomFood,p[random]->name);
 	int randomPrice = p[random]->price;
